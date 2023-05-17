@@ -1,14 +1,23 @@
 import ReactSlider from "react-slider";
 import './Thermometer.css';
+import {useClimateContext} from "../../context/ClimateContext"
+
 
 function Thermometer() {
+const {temperature, setTemperature} = useClimateContext()
+
+  function FUBAR(val) {
+    console.log(temperature)
+    setTemperature(oldTemp => val);
+  }
+
   return (
     <section>
       <h2>Thermometer</h2>
-      <div className="actual-temp">Actual Temperature: {"x"}°F</div>
+      <div className="actual-temp">Actual Temperature: {`${temperature}`}°F</div>
       <ReactSlider
-        value={40}
-        onAfterChange={(val) => {}}
+        value={temperature}
+        onAfterChange={val => FUBAR(val)}
         className="thermometer-slider"
         thumbClassName="thermometer-thumb"
         trackClassName="thermometer-track"
@@ -24,6 +33,7 @@ function Thermometer() {
         pearling
         minDistance={1}
       />
+      {console.log(temperature)}
     </section>
   );
 }
